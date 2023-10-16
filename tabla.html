@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tabla de sueldo</title>
+</head>
+<body>
+  
+  
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre"><br><br>
+  
+  <label for="depto">Depto:</label>
+  <input type="text" id="depto"><br><br>
+  
+  <label for="sueldoDiario">Sueldo diario:</label>
+  <input type="number" id="sueldoDiario"><br><br>
+  
+  <label for="antiguedad">Antigüedad:</label>
+  <input type="number" id="antiguedad"><br><br>
+  
+  <label for="diasTrabajados">Días trabajados:</label>
+  <input type="number" id="diasTrabajados"><br><br>
+  
+  <button onclick="calcularSueldo()">Calcular</button><br><br>
+  
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Depto</th>
+        <th>Sueldo diario</th>
+        <th>Antigüedad</th>
+        <th>Días trabajados</th>
+        <th>Subtotal</th>
+        <th>Bono</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="resultado">
+    </tbody>
+  </table>
+  
+  <script>
+    function calcularSueldo() {
+      const nombre = document.getElementById('nombre').value;
+      const depto = document.getElementById('depto').value;
+      const sueldoDiario = parseFloat(document.getElementById('sueldoDiario').value);
+      const antiguedad = parseInt(document.getElementById('antiguedad').value);
+      const diasTrabajados = parseInt(document.getElementById('diasTrabajados').value);
+      
+      const subtotal = sueldoDiario * diasTrabajados;
+
+      let bono = 0;
+      if (antiguedad > 15) {
+        bono = subtotal * 0.30;  // Bono del 30% para antigüedad mayor a 15 años
+      } else {
+        bono = subtotal * 0.15;  // Bono del 15% para antigüedad menor o igual a 15 años
+      }
+
+      const total = subtotal + bono;
+      
+      const resultadoTabla = document.getElementById('resultado');
+      resultadoTabla.innerHTML = `
+        <tr>
+          <td>${nombre}</td>
+          <td>${depto}</td>
+          <td>${sueldoDiario}</td>
+          <td>${antiguedad}</td>
+          <td>${diasTrabajados}</td>
+          <td>${subtotal}</td>
+          <td>${bono}</td>
+          <td>${total}</td>
+        </tr>
+      `;
+    }
+  </script>
+</body>
+</html>
